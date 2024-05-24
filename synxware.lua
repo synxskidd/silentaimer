@@ -1,4 +1,27 @@
- 
+    getgenv().SharpSSilent = {
+        Enabled = true,
+        Prediction = 0.1215,
+        Keybind = "C",
+        Resolver = false,
+        WallCheck = true,
+        FovSettings = {
+            FovVisible = true,
+            FovRadius = 60,
+            FovThickness = 2,
+            FovTransparency = 0.7,
+            FovColor = Color3.fromRGB(255, 255, 255),
+            Filled = false,
+            FillTransparency = 0.9,
+            FovShape = "Circle"  -- ["Circle", "Square", "Triangle"] -- Doesnt Work ATM ig
+        },
+        HitPoint = {
+            ShowHitPoint = false,
+            HitPointRadius = 8,
+            HitPointThickness = 2,
+            HitPointColor = Color3.fromRGB(255, 0, 0),
+            HitPointTransparency = 1,
+        }
+    } 
 -- // Services // --
 local G = game
 local Run_Service = G:GetService("RunService")
