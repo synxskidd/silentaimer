@@ -697,4 +697,5 @@ UserInputService.InputBegan:Connect(function(input, isProcessed)
         end
 end)
 --
+if game.PlaceId == 2788229376 or game.PlaceId == 17319408836 or game.PlaceId == 17344804827 or game.PlaceId == 16374148613 or game.PlaceId == 17108757521 or game.PlaceId == 17109142105 or game.PlaceId == 17055114130 or game.PlaceID == 17108910530 or game.PlaceId == 17108801343 or game.PlaceId == 16033173781 or game.PlaceId == 17109142105 then
 
