@@ -1,27 +1,348 @@
-    getgenv().SharpSSilent = {
-        Enabled = true,
-        Prediction = 0.1215,
-        Keybind = "C",
-        Resolver = false,
-        WallCheck = true,
-        FovSettings = {
-            FovVisible = true,
-            FovRadius = 60,
-            FovThickness = 2,
-            FovTransparency = 0.7,
-            FovColor = Color3.fromRGB(255, 255, 255),
-            Filled = false,
-            FillTransparency = 0.9,
-            FovShape = "Circle"  -- ["Circle", "Square", "Triangle"] -- Doesnt Work ATM ig
-        },
-        HitPoint = {
-            ShowHitPoint = false,
-            HitPointRadius = 8,
-            HitPointThickness = 2,
-            HitPointColor = Color3.fromRGB(255, 0, 0),
-            HitPointTransparency = 1,
-        }
-    } 
+getgenv().SharpSSilent = {
+    Enabled = true,
+    Prediction = 0.1215,
+    Keybind = "C",
+    Resolver = false,
+    WallCheck = true,
+    FovSettings = {
+        FovVisible = true,
+        FovRadius = 30,
+        FovThickness = 2,
+        FovTransparency = 0.7,
+        FovColor = Color3.fromRGB(255, 255, 255),
+        Filled = false,
+        FillTransparency = 0.9,
+        FovShape = "Circle"  -- ["Circle", "Square", "Triangle"] -- Doesnt Work ATM ig
+    },
+    HitPoint = {
+        ShowHitPoint = false,
+        HitPointRadius = 8,
+        HitPointThickness = 2,
+        HitPointColor = Color3.fromRGB(255, 0, 0),
+        HitPointTransparency = 1,
+    }
+}
+
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+---
+--
+--
+--
+--
+--
+
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
 -- // Services // --
 local G = game
 local Run_Service = G:GetService("RunService")
@@ -33,7 +354,7 @@ local Current_Camera = G:GetService("Workspace").CurrentCamera
 local Replicated_Storage = G:GetService("ReplicatedStorage")
 local StarterGui = G:GetService("StarterGui")
 local Workspace = G:GetService("Workspace")
- 
+
 -- // Variables // --
 local Target = nil
 local V2 = Vector2.new
@@ -42,12 +363,12 @@ local holdingMouseButton = false
 local lastToolUse = 0
 local HitPoint = Drawing.new("Circle")
 local FovParts = {}  -- Store the parts for square and triangle FOV
- 
+
 -- // Game Load Check // --
 if not game:IsLoaded() then
     game.Loaded:Wait()
 end
- 
+
 -- // Clear FOV Parts // --
 local function clearFovParts()
     for _, part in pairs(FovParts) do
@@ -55,12 +376,12 @@ local function clearFovParts()
     end
     FovParts = {}
 end
- 
+
 -- // Update FOV Function // --
 local function updateFov()
     local settings = getgenv().SharpSSilent.FovSettings
     clearFovParts()
- 
+
     if settings.FovShape == "Square" then
         local halfSize = settings.FovRadius / 2
         local corners = {
@@ -108,7 +429,7 @@ local function updateFov()
         end
     end
 end
- 
+
 -- // Notification Function // --
 local function sendNotification(title, text, icon)
     StarterGui:SetCore("SendNotification", {
@@ -118,7 +439,7 @@ local function sendNotification(title, text, icon)
         Duration = 5
     })
 end
- 
+
 -- // Knock Check // --
 local function Death(Plr)
     if Plr.Character and Plr.Character:FindFirstChild("BodyEffects") then
@@ -128,19 +449,19 @@ local function Death(Plr)
     end
     return false
 end
- 
+
 -- // Grab Check // --
 local function Grabbed(Plr)
     return Plr.Character and Plr.Character:FindFirstChild("GRABBING_CONSTRAINT") ~= nil
 end
- 
+
 -- // Check if Part in Fov and Visible // --
 local function isPartInFovAndVisible(part)
     local screenPoint, onScreen = Current_Camera:WorldToScreenPoint(part.Position)
     local distance = (V2(screenPoint.X, screenPoint.Y) - V2(Mouse.X, Mouse.Y)).Magnitude
     return onScreen and distance <= getgenv().SharpSSilent.FovSettings.FovRadius
 end
- 
+
 -- // Check if Part Visible // --
 local function isPartVisible(part)
     if not getgenv().SharpSSilent.WallCheck then 
@@ -152,18 +473,18 @@ local function isPartVisible(part)
     local hit = Workspace:FindPartOnRayWithIgnoreList(ray, {Local_Player.Character, part.Parent})
     return hit == part or not hit
 end
- 
+
 -- // Get Closest Hit Point on Part // --
 local function GetClosestHitPoint(character)
     local closestPart = nil
     local closestPoint = nil
     local shortestDistance = math.huge
- 
+
     for _, part in pairs(character:GetChildren()) do
         if part:IsA("BasePart") and isPartInFovAndVisible(part) and isPartVisible(part) then
             local screenPoint, onScreen = Current_Camera:WorldToScreenPoint(part.Position)
             local distance = (V2(screenPoint.X, screenPoint.Y) - V2(Mouse.X, Mouse.Y)).Magnitude
- 
+
             if distance < shortestDistance then
                 closestPart = part
                 closestPoint = part.Position
@@ -171,10 +492,10 @@ local function GetClosestHitPoint(character)
             end
         end
     end
- 
+
     return closestPart, closestPoint
 end
- 
+
 -- // Get Velocity Function // --
 local OldPredictionY = getgenv().SharpSSilent.Prediction
 local function GetVelocity(player, part)
@@ -192,12 +513,12 @@ local function GetVelocity(player, part)
     end
     return Vector3.new(0, 0, 0)
 end
- 
+
 -- // Get Closest Player // --
 local function GetClosestPlr()
     local closestTarget = nil
     local maxDistance = math.huge
- 
+
     for _, player in pairs(Players:GetPlayers()) do
         if player.Character and player ~= Local_Player and not Death(player) then  -- KO check using Death function
             local closestPart, closestPoint = GetClosestHitPoint(player.Character)
@@ -211,10 +532,10 @@ local function GetClosestPlr()
             end
         end
     end
- 
+
     return closestTarget
 end
- 
+
 -- // Toggle Feature // --
 local function toggleFeature()
     getgenv().SharpSSilent.Enabled = not getgenv().SharpSSilent.Enabled
@@ -226,12 +547,12 @@ local function toggleFeature()
         clearFovParts()
     end
 end
- 
+
 -- // Convert Keybind to KeyCode // --
 local function getKeyCodeFromString(key)
     return Enum.KeyCode[key]
 end
- 
+
 -- // Keybind Listener // --
 UserInputService.InputBegan:Connect(function(input, gameProcessed)
     if not gameProcessed and input.KeyCode == getKeyCodeFromString(getgenv().SharpSSilent.Keybind) then
@@ -240,13 +561,13 @@ UserInputService.InputBegan:Connect(function(input, gameProcessed)
         holdingMouseButton = true
     end
 end)
- 
+
 UserInputService.InputEnded:Connect(function(input, gameProcessed)
     if input.UserInputType == Enum.UserInputType.MouseButton1 then
         holdingMouseButton = false
     end
 end)
- 
+
 -- // Main Loop // --
 Run_Service.RenderStepped:Connect(function()
     if getgenv().SharpSSilent.Enabled then
@@ -268,7 +589,7 @@ Run_Service.RenderStepped:Connect(function()
                 else
                     HitPoint.Visible = false
                 end
- 
+
                 if holdingMouseButton then
                     local velocity = GetVelocity(Target, closestPart.Name)
                     Replicated_Storage.MainEvent:FireServer("UpdateMousePos", closestPoint + velocity * getgenv().SharpSSilent.Prediction)
@@ -279,7 +600,7 @@ Run_Service.RenderStepped:Connect(function()
         end
     end
 end)
- 
+
 -- // Hook Tool Activation // --
 local function HookTool(tool)
     if tool:IsA("Tool") then
@@ -295,21 +616,123 @@ local function HookTool(tool)
         end)
     end
 end
- 
+
 local function onCharacterAdded(character)
     character.ChildAdded:Connect(HookTool)
     for _, tool in pairs(character:GetChildren()) do
         HookTool(tool)
     end
 end
- 
+
 Local_Player.CharacterAdded:Connect(onCharacterAdded)
 if Local_Player.Character then
     onCharacterAdded(Local_Player.Character)
 end
- 
+
 -- // Initial Notification // --
-sendNotification("dc.gg/synx", "♣️ #1 silent aim", "rbxassetid://17561420493")
+sendNotification("INJECTED", "♣️ ", "rbxassetid://17561420493")
 wait(3)
-sendNotification("dc.gg/synx", "♣️ Supports Solara", "rbxassetid://17561420493")
---[[ 
+sendNotification("START TAPPN!!", "♣️ BEST SILENT AIM", "rbxassetid://17561420493")
+--
+    
+local UserInputService = game:GetService("UserInputService")
+
+local Sorting = {
+    Enabled = true,
+    Keybind = Enum.KeyCode.J,
+    Slots = {
+        [1] = "[Revolver]",
+        [2] = "[Knife]",
+        [3] = "[Double-Barrel SG]",
+        [4] = "Tactical Shotgun",
+        [5] = "",
+        [6] = "",
+        [7] = "",
+        [8] = "",
+        [9] = "",
+        [0] = "",
+    }
+}
+
+local function sortInventory()
+    if not Sorting.Enabled then
+        return
+    end
+
+    local player = game.Players.LocalPlayer
+    local backpack = player:FindFirstChildOfClass("Backpack")
+    if not backpack then
+        return
+    end
+
+    local originalItems = {}
+    for _, tool in ipairs(backpack:GetChildren()) do
+        table.insert(originalItems, tool)
+    end
+    for _, tool in ipairs(backpack:GetChildren()) do
+        tool.Parent = nil
+    end
+
+    for i = 1, 10 do
+        local slot = Sorting.Slots[i % 10] -- Slot 0 for the 10th slot
+        if slot ~= "" then
+            for index, tool in ipairs(originalItems) do
+                if tool.Name == slot then
+                    tool.Parent = backpack
+                    table.remove(originalItems, index)
+                    break
+                end
+            end
+        end
+    end
+
+    for _, tool in ipairs(originalItems) do
+        tool.Parent = backpack
+    end
+end
+
+UserInputService.InputBegan:Connect(function(input, isProcessed)
+    if not isProcessed and input.KeyCode == Sorting.Keybind then
+        sortInventory()
+        end
+end)
+--
+game.Players.LocalPlayer.Character.Head.Transparency = 1
+game.Players.LocalPlayer.Character.Head.Transparency = 1
+for i,v in pairs(game.Players.LocalPlayer.Character.Head:GetChildren()) do
+if (v:IsA("Decal")) then
+v.Transparency = 1
+end
+end
+---------------HeadLess Above-----------------------------
+---------------NON FE -----------------------------
+---------------Korblox Below-----------------------------
+local ply = game.Players.LocalPlayer
+local chr = ply.Character
+chr.RightLowerLeg.MeshId = "902942093"
+chr.RightLowerLeg.Transparency = "1"
+chr.RightUpperLeg.MeshId = "http://www.roblox.com/asset/?id=902942096"
+chr.RightUpperLeg.TextureID = "http://roblox.com/asset/?id=902843398"
+chr.RightFoot.MeshId = "902942089"
+chr.RightFoot.Transparency = "1"
+--
+local words = {
+    'ur bad',
+    'son',
+    'GG/SYNX RUNS YOU LIL BRO',
+    'unknown',
+    'sad',
+    'clipped',
+    'nn',
+}
+
+local player = game.Players.LocalPlayer
+local keybind = 'y' 
+
+local event = game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest
+
+player:GetMouse().KeyDown:connect(function(key)
+    if key == keybind then
+        event:FireServer(words[math.random(#words)], "All")
+    end
+end)
